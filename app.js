@@ -1,6 +1,8 @@
 var express = require('express')
 var app = express()
 var Sequelize = require('sequelize');
+var cors = require('cors');
+var bodyParser = require('body-parser')
 
 var DB_NAME = 'mohan'
 var DB_USER = 'mohan'
@@ -37,6 +39,9 @@ url: {
  {
   timestamps: false
 });
+
+app.use(cors());
+app.use(bodyParser());
 
 app.get('/api/products', function (request, response) {
 
