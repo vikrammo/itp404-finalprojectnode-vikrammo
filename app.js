@@ -15,7 +15,7 @@ var sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD,{
 
 });
 
-var Song = sequelize.define('products', {
+var Product = sequelize.define('products', {
 
 name: {
 type: Sequelize.STRING
@@ -41,14 +41,66 @@ url: {
   timestamps: false
 });
 
+var Site = sequelize.define('othersources', {
+
+siteName: {
+type: Sequelize.STRING
+
+},
+siteURL: {
+  type: Sequelize.STRING
+
+},
+
+siteDescription: {
+
+  type: Sequelize.INTEGER
+},
+
+},
+ {
+  timestamps: false
+});
+
+var Tutorial = sequelize.define('tutorials', {
+
+name: {
+type: Sequelize.STRING
+
+},
+url: {
+  type: Sequelize.STRING
+
+},
+},
+ {
+  timestamps: false
+});
+
 app.use(cors());
 app.use(bodyParser());
 
 app.get('/api/products', function (request, response) {
 
-  var promise = Song.findAll();
-  promise.then(function(songs){
-    response.json(songs);
+  var promise = Product.findAll();
+  promise.then(function(products){
+    response.json(products);
+  });
+})
+
+app.get('/api/othersources', function (request, response) {
+
+  var promise = Site.findAll();
+  promise.then(function(sites){
+    response.json(sites);
+  });
+})
+
+app.get('/api/tutorials', function (request, response) {
+
+  var promise = Tutorial.findAll();
+  promise.then(function(videos){
+    response.json(videos);
   });
 })
 
