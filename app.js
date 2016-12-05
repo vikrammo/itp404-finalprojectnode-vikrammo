@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express = require('express')
 var app = express()
 var Sequelize = require('sequelize');
@@ -5,6 +7,8 @@ var cors = require('cors');
 var bodyParser = require('body-parser')
 var Twitter = require('twitter');
 
+
+//database David created for me
 var DB_NAME = 'mohan'
 var DB_USER = 'mohan'
 var DB_PASSWORD = 'ember node 2016'
@@ -14,7 +18,7 @@ var sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD,{
   host: 'itp460.usc.edu'
 
 });
-
+//define product from database
 var Product = sequelize.define('products', {
 
 name: {
@@ -40,7 +44,7 @@ url: {
  {
   timestamps: false
 });
-
+//define site from database
 var Site = sequelize.define('othersources', {
 
 siteName: {
@@ -61,7 +65,7 @@ siteDescription: {
  {
   timestamps: false
 });
-
+//define from database
 var Tutorial = sequelize.define('tutorials', {
 
 name: {
@@ -106,12 +110,13 @@ app.get('/api/tutorials', function (request, response) {
 
 app.get('/api/tweets', function(request, response) {
   var client = new Twitter({
-    consumer_key: 'eOD8q1TE1kPC94qqLqLaOcR0q',
-    consumer_secret: 'Mw5gFhnxlHHtp3vidotXZ864tRiffEVnC4iCrdjxohO6AZcNUo',
-    access_token_key: '24509140-Z6Se2tfZhYqgMccaTxhgTcOod8q0kTQCKf86N69Iz',
-    access_token_secret: 'ggJ8PX8odT6ddaNQossD6Bj2AJ4P9XwH3W6zXiLst3dl0'
+    consumer_key: "eOD8q1TE1kPC94qqLqLaOcR0q",
+    consumer_secret: "Mw5gFhnxlHHtp3vidotXZ864tRiffEVnC4iCrdjxohO6AZcNUo",
+    access_token_key: "24509140-Z6Se2tfZhYqgMccaTxhgTcOod8q0kTQCKf86N69Iz",
+    access_token_secret: "ggJ8PX8odT6ddaNQossD6Bj2AJ4P9XwH3W6zXiLst3dl0"
   });
 
+//load the coupons twitter page
   var params = { screen_name: 'coupons'};
   client.get('statuses/user_timeline', params, function(error, tweets) {
     if (!error) {
@@ -120,4 +125,5 @@ app.get('/api/tweets', function(request, response) {
   });
 });
 
+//heroku compatible
 app.listen(process.env.PORT || 3000)
